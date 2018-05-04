@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Wouldyou</string>
+    <string name="title_events">Events</string>
+    <string name="title_search">Search</string>
+    <string name="title_profile">Profile</string>
+    <string name="google_maps_API_key">AIzaSyB6ALpwgUD9Weoiv0fG2Ql0viFBnuId14M</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
