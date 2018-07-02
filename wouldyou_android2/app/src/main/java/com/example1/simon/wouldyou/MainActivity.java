@@ -3,6 +3,8 @@ package com.example1.simon.wouldyou;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -37,10 +39,31 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
+
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
 
-        FrameLayout target = findViewById(R.id.fragment_container);
+        //lettura delle Shared Preferences
+        /*SharedPreferences sharedPref = this.getSharedPreferences("LoginPref", Context.MODE_PRIVATE);
+        String token = sharedPref.getString(getString(R.string.token), "");
+        Log.d("MainActivity", "Sono il token" + token);
+
+        if (token != "") {
+            Log.d("MainActivity", "Sono nella MainActivity");
+        }
+        else {
+            Log.d("main", "...");
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }*/
+
+
+        //FrameLayout target = findViewById(R.id.fragment_container);
 
         //loadFragment(searchFragment);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, searchFragment).commit();
@@ -75,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this, available, ERROR_DIALOG_REQUEST);
             dialog.show();
         } else {
-            Toast.makeText(this, "Youn can't make map requests", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
         }
 
         return false;
